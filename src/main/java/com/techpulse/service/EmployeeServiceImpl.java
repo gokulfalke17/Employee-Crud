@@ -4,6 +4,7 @@ import com.techpulse.dto.EmployeeRequestDTO;
 import com.techpulse.dto.EmployeeResponseDTO;
 import com.techpulse.entity.Employee;
 import com.techpulse.exception.EmployeeNotFoundException;
+import com.techpulse.mapper.EmployeeMapper;
 import com.techpulse.repository.IEmployeeRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +22,10 @@ public class EmployeeServiceImpl implements IEmployeeService {
     @Autowired
     private IEmployeeRepository repository;
 
+/*
     @Autowired
     private ModelMapper mapper;
+
 
     // Convert DTO <-> Entity
     private Employee toEntity(EmployeeRequestDTO dto) {
@@ -33,7 +36,10 @@ public class EmployeeServiceImpl implements IEmployeeService {
     private EmployeeResponseDTO toDTO(Employee employee) {
         return mapper.map(employee, EmployeeResponseDTO.class);
     }
+    */
 
+    @Autowired
+    private EmployeeMapper mapper;
 
 
 
@@ -61,18 +67,23 @@ public class EmployeeServiceImpl implements IEmployeeService {
 
     @Override
     public EmployeeResponseDTO addEmployee(EmployeeRequestDTO dto) {
-        Employee employee = toEntity(dto);
+//        Employee employee = toEntity(dto);
+        Employee employee = mapper.toEntity(dto);
         Employee savedEmployee = repository.save(employee);
-        return toDTO(savedEmployee);
+//        return toDTO(savedEmployee);
+        return mapper.toDTO(savedEmployee);
     }
+
 
     @Override
     public List<EmployeeResponseDTO> getEmployees() {
         List<EmployeeResponseDTO> list =
                 repository.findAll()
                 .stream()
-                .map(this::toDTO)
+//                .map(this::toDTO)
+                .map(mapper::toDTO)
                 .collect(Collectors.toList());
+
         return list;
     }
 
@@ -80,14 +91,16 @@ public class EmployeeServiceImpl implements IEmployeeService {
     public Page<EmployeeResponseDTO> getEmployees(int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
         Page<Employee> employeePage = repository.findAll(pageable);
-        return employeePage.map(this::toDTO);
+//        return employeePage.map(this::toDTO);
+        return  employeePage.map(mapper::toDTO);
     }
 
     @Override
     public EmployeeResponseDTO getEmployees(Integer empId) {
         Employee employee = repository.findById(empId)
                     .orElseThrow(() -> new EmployeeNotFoundException("Employee Not Found :: "+empId));
-        return toDTO(employee);
+//        return toDTO(employee);
+        return mapper.toDTO(employee);
     }
 
     @Override
@@ -100,7 +113,8 @@ public class EmployeeServiceImpl implements IEmployeeService {
         oldEmployee.setDept(dto.getDept());
 
         Employee updatedEmployee = repository.save(oldEmployee);
-        return toDTO(updatedEmployee);
+//        return toDTO(updatedEmployee);
+        return mapper.toDTO(updatedEmployee);
     }
 
     @Override
