@@ -1,9 +1,9 @@
-/*
 package com.techpulse.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.List;
 import java.util.Stack;
 
 @Entity
@@ -18,5 +18,7 @@ public class Company {
 
     @Column(length = 1000)
     private Integer noOfEmployees;
+
+    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Employee> employees;
 }
-*/

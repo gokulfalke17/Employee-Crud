@@ -33,4 +33,12 @@ public class GlobalExceptionHandler {
         );
     }
 
+    @ExceptionHandler(CompanyNotAvailableException.class)
+    public ResponseEntity<ApiResponse> handleCompanyNotFoundException(CompanyNotAvailableException exception) {
+        return  new ResponseEntity<>(
+                new ApiResponse(false, exception.getMessage(), null),
+                HttpStatus.NOT_FOUND
+        );
+    }
+
 }

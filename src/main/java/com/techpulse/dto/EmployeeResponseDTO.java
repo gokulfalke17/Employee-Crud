@@ -14,4 +14,7 @@ public class EmployeeResponseDTO {
     private String city;
 
     private Status status;
+
+    private CompanyResponseDTO company;
+
 }

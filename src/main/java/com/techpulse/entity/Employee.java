@@ -1,5 +1,6 @@
 package com.techpulse.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.techpulse.entity.enums.Status;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -27,4 +28,8 @@ public class Employee {
     @Enumerated(EnumType.STRING)
     private Status status;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "company_id")
+    @JsonIgnore
+    private Company company;
 }

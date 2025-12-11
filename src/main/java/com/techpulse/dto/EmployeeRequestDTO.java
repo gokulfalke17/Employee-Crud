@@ -30,4 +30,7 @@ public class EmployeeRequestDTO {
 
     @NotNull
     private Status status;
+
+    @NotNull
+    private Integer companyId;
 }

@@ -43,7 +43,7 @@ public class EmployeeController {
     public ResponseEntity<ApiResponse> addEmployee(@Valid @RequestBody EmployeeRequestDTO dto) {
         EmployeeResponseDTO addedEmployee = service.addEmployee(dto);
         return ResponseEntity.ok(
-                new ApiResponse(true, "Employee Added Successfully...", dto)
+                new ApiResponse(true, "Employee Added Successfully...", addedEmployee)
         );
     }
 

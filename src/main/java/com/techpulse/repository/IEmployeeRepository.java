@@ -1,6 +1,5 @@
 package com.techpulse.repository;
 
-import com.techpulse.dto.EmployeeResponseDTO;
 import com.techpulse.entity.Employee;
 import com.techpulse.entity.enums.Status;
 import org.springframework.data.domain.Page;
@@ -8,8 +7,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-
-import java.util.List;
 
 public interface IEmployeeRepository extends JpaRepository<Employee, Integer> {
 
