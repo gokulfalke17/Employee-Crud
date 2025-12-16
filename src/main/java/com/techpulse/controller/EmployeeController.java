@@ -22,6 +22,21 @@ public class EmployeeController {
     private IEmployeeService service;
 
 
+    @GetMapping("/secondCharacter")
+    public ResponseEntity<ApiResponse> filterEmployeeBySecondCharacterOfEmpName(
+            @RequestParam String secondCharacter
+    ) {
+        return ResponseEntity.ok(
+                new ApiResponse(
+                        true,
+                        "Employee Found Second Character of Name Successfully...",
+                        service.findEmployeeBySecondCharacter(secondCharacter)
+                )
+        );
+    }
+
+
+
     @GetMapping("/search")
     public ResponseEntity<ApiResponse> filterEmployees(
             @RequestParam(required = false) String empName,

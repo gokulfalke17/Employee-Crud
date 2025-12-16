@@ -8,6 +8,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.List;
+
 public interface IEmployeeRepository extends JpaRepository<Employee, Integer> {
 
     /*@Query(value = """
@@ -35,5 +37,15 @@ public interface IEmployeeRepository extends JpaRepository<Employee, Integer> {
             @Param("status") Status status,
             Pageable pageable
     );
+
+    @Query(
+            value = """
+        SELECT * FROM employee e
+        WHERE e.emp_name LIKE ?1
+           OR e.emp_name LIKE ?2
+        """,
+            nativeQuery = true
+    )
+    List<Employee> findEmployeeBySecondCharacter(String lowerPattern, String upperPattern);
 
 }

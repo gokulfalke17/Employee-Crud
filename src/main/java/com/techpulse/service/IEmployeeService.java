@@ -12,6 +12,7 @@ import java.util.List;
 public interface IEmployeeService {
 
 
+
     public EmployeeResponseDTO addEmployee(EmployeeRequestDTO dto) throws NamingException;
     public List<EmployeeResponseDTO> getEmployees();
     public Page<EmployeeResponseDTO> getEmployees(int page, int size);
@@ -27,6 +28,9 @@ public interface IEmployeeService {
             int page,
             int size
     ) ;
+
+
+    public List<EmployeeResponseDTO> findEmployeeBySecondCharacter(String secondCharacter);
 
 
     /*

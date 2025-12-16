@@ -23,6 +23,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.naming.NamingException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -46,6 +47,9 @@ public class EmployeeServiceImpl implements IEmployeeService {
     @Autowired
     private IEmailValidationService emailValidationService;
 
+
+
+
     @Override
     public Page<EmployeeResponseDTO> filterEmployees(
             String empName, String dept, String email,
@@ -64,6 +68,23 @@ public class EmployeeServiceImpl implements IEmployeeService {
             return dto;
         });
     }
+
+    @Override
+    public List<EmployeeResponseDTO> findEmployeeBySecondCharacter(String secondCharacter) {
+
+        char ch = secondCharacter.charAt(0);
+
+        String lowerPattern = "_" + Character.toLowerCase(ch) + "%";
+        String upperPattern = "_" + Character.toUpperCase(ch) + "%";
+
+        return repository
+                .findEmployeeBySecondCharacter(lowerPattern, upperPattern)
+                .stream()
+                .map(employeeMapper::toDTO)
+                .toList();
+    }
+
+
 
     @Override
     public EmployeeResponseDTO addEmployee(EmployeeRequestDTO dto) throws NamingException {
